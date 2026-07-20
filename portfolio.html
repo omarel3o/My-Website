@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Omar Khaled</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="portfolio-redirect-page">
+
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="profile-frame" id="profile-trigger">
+                <img src="assets/2.jpeg" alt="Omar Khaled" class="profile-img">
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="portfolio.html" class="active">Portfolio</a>
+                <a href="resume.html">Resume</a>
+                <a href="games.html">Games</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+        
+        <div class="nav-right">
+            <div class="toggle-container">
+                <span class="toggle-label">Dark Mode</span>
+                <button id="theme-toggle" class="switch-btn"></button>
+            </div>
+            <button class="subscribe-btn" id="subscribe-btn">Subscribe</button>
+        </div>
+    </header>
+
+    <!-- النافذة الصغيرة المنبثقة لـ Subscribe -->
+    <div id="subscribe-modal" class="custom-popup-modal">
+        <div class="popup-content">
+            <span class="close-popup" id="close-subscribe">&times;</span>
+            <h2>Under update</h2>
+        </div>
+    </div>
+
+    <main class="redirect-main-box">
+        <div class="soon-glow-text">SOon</div>
+        <div class="loading-sub-text">Redirecting to GitHub portfolio...</div>
+    </main>
+
+    <footer class="portfolio-footer">
+        <p>&copy; All rights reserved to Omar Khaled Portfolio</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // إعداد عملية التوجيه بعد 5 ثوانٍ بالضبط
+        setTimeout(() => {
+            window.location.href = "https://github.com/omarel3o";
+        }, 5000);
+    </script>
+</body>
+</html>

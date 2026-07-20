@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games | Omar Khaled</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .games-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 80px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .games-header-box {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 30px;
+            width: 100%;
+        }
+
+        .games-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            width: 100%;
+            max-width: 620px;
+        }
+
+        .game-card {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px 35px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+        }
+
+        .game-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-color);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+        [data-theme="dark"] .game-card:hover {
+            box-shadow: 0 12px 30px rgba(255,215,0,0.12);
+        }
+
+        .game-icon {
+            font-size: 3.2rem;
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent-color), #ff9900);
+            border-radius: 18px;
+            flex-shrink: 0;
+            box-shadow: 0 6px 16px rgba(212,175,55,0.3);
+        }
+
+        .game-info {
+            flex: 1;
+        }
+
+        .game-info h2 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .game-info p {
+            font-size: 1rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        [data-theme="dark"] .game-info p {
+            color: #aaa;
+        }
+
+        .game-arrow {
+            font-size: 1.6rem;
+            color: var(--accent-color);
+            transition: transform 0.2s;
+        }
+
+        .game-card:hover .game-arrow {
+            transform: translateX(6px);
+        }
+
+        @media (max-width: 768px) {
+            .games-container { padding-top: 30px; }
+            .game-card { padding: 20px; gap: 18px; }
+            .game-icon { font-size: 2.4rem; width: 58px; height: 58px; }
+            .game-info h2 { font-size: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="profile-frame" id="profile-trigger">
+                <img src="assets/2.jpeg" alt="Omar Khaled" class="profile-img">
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="resume.html">Resume</a>
+                <a href="games.html" class="active">Games</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+        <div class="nav-right">
+            <div class="toggle-container">
+                <span class="toggle-label">Dark Mode</span>
+                <button id="theme-toggle" class="switch-btn"></button>
+            </div>
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </header>
+
+    <div id="image-modal" class="modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <img class="modal-content" src="assets/2.jpeg" alt="Omar Khaled Enlarged">
+    </div>
+
+    <main class="games-container">
+        <div class="games-header-box">
+            <h1 class="main-title">Games</h1>
+            <p class="subtitle">Challenge yourself — logic & strategy</p>
+        </div>
+
+        <div class="games-grid">
+            <a href="game-xo.html" class="game-card">
+                <div class="game-icon">✕○</div>
+                <div class="game-info">
+                    <h2>X & O</h2>
+                    <p>Classic Tic-Tac-Toe against an intelligent computer opponent. Beat it if you can!</p>
+                </div>
+                <div class="game-arrow">➔</div>
+            </a>
+
+            <a href="game-equations.html" class="game-card">
+                <div class="game-icon">𝑥</div>
+                <div class="game-info">
+                    <h2>First-Degree Equations</h2>
+                    <p>100 algebra equations — solve for X and choose the correct answer from 3 options.</p>
+                </div>
+                <div class="game-arrow">➔</div>
+            </a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

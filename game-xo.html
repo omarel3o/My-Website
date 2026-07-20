@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X & O Game | Omar Khaled</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .game-page-container {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 110px 20px 80px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-title-box {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .game-title-box h1 {
+            font-size: 2.8rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+        }
+
+        .turn-indicator {
+            font-size: 1.15rem;
+            margin-top: 8px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            min-height: 28px;
+        }
+
+        .turn-you { color: #4caf50; }
+        .turn-com { color: #ef5350; }
+
+        /* XO Board */
+        .xo-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 380px;
+            margin: 10px 0 28px;
+        }
+
+        .xo-cell {
+            aspect-ratio: 1;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: background 0.18s, border-color 0.18s, transform 0.12s;
+            user-select: none;
+        }
+
+        .xo-cell:hover:not(.taken) {
+            background: rgba(212,175,55,0.1);
+            border-color: var(--accent-color);
+            transform: scale(1.04);
+        }
+
+        .xo-cell.taken { cursor: default; }
+        .xo-cell.x-mark { color: #4caf50; }
+        .xo-cell.o-mark { color: #ef5350; }
+
+        .xo-cell.winning-cell {
+            background: rgba(212,175,55,0.2);
+            border-color: var(--accent-color);
+            animation: winPulse 0.5s ease;
+        }
+
+        @keyframes winPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Buttons */
+        .game-btns {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .gbtn {
+            padding: 13px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s, opacity 0.15s;
+            letter-spacing: 0.5px;
+        }
+
+        .gbtn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        .gbtn-reset {
+            background: var(--accent-color);
+            color: #111;
+        }
+
+        .gbtn-exit {
+            background: #555;
+            color: #fff;
+        }
+
+        [data-theme="dark"] .gbtn-exit { background: #333; }
+
+        /* Modal overlay */
+        .result-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.82);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .result-overlay.show { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        .result-box {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            padding: 44px 50px;
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+            animation: slideUp 0.28s ease;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .result-emoji { font-size: 3.5rem; margin-bottom: 14px; }
+
+        .result-msg {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .result-sub {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 28px;
+        }
+
+        .result-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+        .rbtn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .rbtn:hover { transform: translateY(-2px); }
+        .rbtn-yes { background: var(--accent-color); color: #111; }
+        .rbtn-no { background: #555; color: #fff; }
+        [data-theme="dark"] .rbtn-no { background: #333; }
+
+        @media (max-width: 768px) {
+            .game-page-container { padding-top: 28px; }
+            .game-title-box h1 { font-size: 2rem; }
+            .xo-cell { font-size: 2.4rem; }
+            .result-box { padding: 30px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="profile-frame" id="profile-trigger">
+                <img src="assets/2.jpeg" alt="Omar Khaled" class="profile-img">
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="resume.html">Resume</a>
+                <a href="games.html">Games</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+        <div class="nav-right">
+            <div class="toggle-container">
+                <span class="toggle-label">Dark Mode</span>
+                <button id="theme-toggle" class="switch-btn"></button>
+            </div>
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </header>
+
+    <div id="image-modal" class="modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <img class="modal-content" src="assets/2.jpeg" alt="Omar Khaled Enlarged">
+    </div>
+
+    <!-- Result Modal -->
+    <div class="result-overlay" id="result-overlay">
+        <div class="result-box">
+            <div class="result-emoji" id="result-emoji"></div>
+            <div class="result-msg" id="result-msg"></div>
+            <div class="result-sub">Play again?</div>
+            <div class="result-btns">
+                <button class="rbtn rbtn-yes" id="rbtn-yes">Yes ✓</button>
+                <button class="rbtn rbtn-no" id="rbtn-no">No ✗</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="game-page-container">
+        <div class="game-title-box">
+            <h1>✕ &amp; ○</h1>
+            <div class="turn-indicator" id="turn-indicator"></div>
+        </div>
+
+        <div class="xo-board" id="xo-board">
+            <div class="xo-cell" data-i="0"></div>
+            <div class="xo-cell" data-i="1"></div>
+            <div class="xo-cell" data-i="2"></div>
+            <div class="xo-cell" data-i="3"></div>
+            <div class="xo-cell" data-i="4"></div>
+            <div class="xo-cell" data-i="5"></div>
+            <div class="xo-cell" data-i="6"></div>
+            <div class="xo-cell" data-i="7"></div>
+            <div class="xo-cell" data-i="8"></div>
+        </div>
+
+        <div class="game-btns">
+            <button class="gbtn gbtn-reset" id="btn-reset">↺ Restart Round</button>
+            <button class="gbtn gbtn-exit" id="btn-exit">✕ Exit</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        const WINS = [
+            [0,1,2],[3,4,5],[6,7,8], // rows
+            [0,3,6],[1,4,7],[2,5,8], // cols
+            [0,4,8],[2,4,6]          // diagonals
+        ];
+
+        let board = Array(9).fill(null);
+        let gameOver = false;
+        let playerTurn = true;
+
+        const cells = document.querySelectorAll('.xo-cell');
+        const turnEl = document.getElementById('turn-indicator');
+        const overlay = document.getElementById('result-overlay');
+
+        function setTurnText() {
+            if (gameOver) return;
+            if (playerTurn) {
+                turnEl.textContent = '🟢 Your Turn (X)';
+                turnEl.className = 'turn-indicator turn-you';
+            } else {
+                turnEl.textContent = '🔴 Computer\'s Turn (O)';
+                turnEl.className = 'turn-indicator turn-com';
+            }
+        }
+
+        function checkWinner(b, mark) {
+            return WINS.find(combo => combo.every(i => b[i] === mark)) || null;
+        }
+
+        function isDraw(b) {
+            return b.every(c => c !== null);
+        }
+
+        function highlightWin(combo) {
+            combo.forEach(i => cells[i].classList.add('winning-cell'));
+        }
+
+        function showResult(emoji, msg) {
+            gameOver = true;
+            turnEl.textContent = '';
+            document.getElementById('result-emoji').textContent = emoji;
+            document.getElementById('result-msg').textContent = msg;
+            overlay.classList.add('show');
+        }
+
+        function renderBoard() {
+            board.forEach((val, i) => {
+                cells[i].textContent = val === 'X' ? '✕' : val === 'O' ? '○' : '';
+                cells[i].className = 'xo-cell' + (val ? ' taken ' + (val === 'X' ? 'x-mark' : 'o-mark') : '');
+            });
+        }
+
+        // Minimax AI
+        function minimax(b, isMaximizing) {
+            const wO = checkWinner(b, 'O');
+            if (wO) return 10;
+            const wX = checkWinner(b, 'X');
+            if (wX) return -10;
+            if (isDraw(b)) return 0;
+
+            if (isMaximizing) {
+                let best = -Infinity;
+                b.forEach((cell, i) => {
+                    if (!cell) {
+                        b[i] = 'O';
+                        best = Math.max(best, minimax(b, false));
+                        b[i] = null;
+                    }
+                });
+                return best;
+            } else {
+                let best = Infinity;
+                b.forEach((cell, i) => {
+                    if (!cell) {
+                        b[i] = 'X';
+                        best = Math.min(best, minimax(b, true));
+                        b[i] = null;
+                    }
+                });
+                return best;
+            }
+        }
+
+        function bestMove() {
+            let best = -Infinity, move = -1;
+            board.forEach((cell, i) => {
+                if (!cell) {
+                    board[i] = 'O';
+                    const score = minimax(board, false);
+                    board[i] = null;
+                    if (score > best) { best = score; move = i; }
+                }
+            });
+            return move;
+        }
+
+        function computerPlay() {
+            if (gameOver) return;
+            const move = bestMove();
+            if (move === -1) return;
+            board[move] = 'O';
+            renderBoard();
+            const wCombo = checkWinner(board, 'O');
+            if (wCombo) { highlightWin(wCombo); setTimeout(() => showResult('😔', 'Computer Wins!'), 300); return; }
+            if (isDraw(board)) { setTimeout(() => showResult('🤝', "It's a Draw!"), 300); return; }
+            playerTurn = true;
+            setTurnText();
+        }
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                const i = parseInt(cell.dataset.i);
+                if (!playerTurn || gameOver || board[i]) return;
+                board[i] = 'X';
+                renderBoard();
+                const wCombo = checkWinner(board, 'X');
+                if (wCombo) { highlightWin(wCombo); setTimeout(() => showResult('🏆', 'You Win!'), 300); return; }
+                if (isDraw(board)) { setTimeout(() => showResult('🤝', "It's a Draw!"), 300); return; }
+                playerTurn = false;
+                setTurnText();
+                setTimeout(computerPlay, 420);
+            });
+        });
+
+        function resetGame() {
+            board = Array(9).fill(null);
+            gameOver = false;
+            playerTurn = true;
+            renderBoard();
+            setTurnText();
+            overlay.classList.remove('show');
+        }
+
+        document.getElementById('btn-reset').addEventListener('click', resetGame);
+        document.getElementById('btn-exit').addEventListener('click', () => { window.location.href = 'games.html'; });
+        document.getElementById('rbtn-yes').addEventListener('click', resetGame);
+        document.getElementById('rbtn-no').addEventListener('click', () => { window.location.href = 'games.html'; });
+
+        // Init
+        setTurnText();
+        renderBoard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Omar Khaled</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="profile-frame" id="profile-trigger">
+                <img src="assets/2.jpeg" alt="Omar Khaled" class="profile-img">
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="resume.html" class="active">Resume</a>
+                <a href="games.html">Games</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+        
+        <div class="nav-right">
+            <div class="toggle-container">
+                <span class="toggle-label">Dark Mode</span>
+                <button id="theme-toggle" class="switch-btn"></button>
+            </div>
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </header>
+
+    <div id="image-modal" class="modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <img class="modal-content" src="assets/2.jpeg" alt="Omar Khaled Enlarged">
+    </div>
+
+    <main class="resume-container">
+        <div class="resume-header">
+            <h1 class="resume-title">Curriculum Vitae</h1>
+            <a href="assets/OmarKhaled_CV.pdf" download="OmarKhaled_CV.pdf" class="download-cv-btn">
+                📥 Download PDF
+            </a>
+        </div>
+
+        <div class="pdf-viewer-container">
+            <object data="assets/OmarKhaled_CV.pdf" type="application/pdf" class="pdf-object">
+                <p>Your browser doesn't support PDF previewing. 
+                   <a href="assets/OmarKhaled_CV.pdf" download>Click here to download the PDF file directly.</a>
+                </p>
+            </object>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

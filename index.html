@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omar Khaled | ML Engineer Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="profile-frame" id="profile-trigger">
+                <img src="assets/2.jpeg" alt="Omar Khaled" class="profile-img">
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="resume.html">Resume</a>
+                <a href="games.html">Games</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+        
+        <div class="nav-right">
+            <div class="toggle-container">
+                <span class="toggle-label">Dark Mode</span>
+                <button id="theme-toggle" class="switch-btn"></button>
+            </div>
+            <button class="subscribe-btn" id="subscribe-btn">Subscribe</button>
+        </div>
+    </header>
+
+    <!-- النافذة الصغيرة المنبثقة لـ Subscribe -->
+    <div id="subscribe-modal" class="custom-popup-modal">
+        <div class="popup-content">
+            <span class="close-popup" id="close-subscribe">&times;</span>
+            <h2>Under update</h2>
+        </div>
+    </div>
+
+    <div id="image-modal" class="modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <img class="modal-content" src="assets/2.jpeg" alt="Omar Khaled Enlarged">
+    </div>
+
+    <!-- الهيرو سيكشن الجديد المطور كلياً -->
+    <main class="hero-wrapper-fixed">
+        <div class="brand-header-zone">
+            <h1 class="brand-name">Omar Khaled Farouk</h1>
+            <p class="brand-title">Machine learning engineer & Data Analyst</p>
+        </div>
+
+        <div class="code-terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">model_training.py</div>
+            </div>
+            <div class="terminal-body">
+                <span id="typing-effect-code"></span><span class="terminal-cursor">|</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- الفوتر مع علامة الحقوق المحدثة -->
+    <footer class="portfolio-footer">
+        <p>&copy; All rights reserved to Omar Khaled Portfolio</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

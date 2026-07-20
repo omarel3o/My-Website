@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me | Omar Khaled</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-left">
+            <div class="profile-frame" id="profile-trigger">
+                <img src="assets/2.jpeg" alt="Omar Khaled" class="profile-img">
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="resume.html">Resume</a>
+                <a href="games.html">Games</a>
+                <a href="contact.html" class="active">Contact</a>
+            </nav>
+        </div>
+        
+        <div class="nav-right">
+            <div class="toggle-container">
+                <span class="toggle-label">Dark Mode</span>
+                <button id="theme-toggle" class="switch-btn"></button>
+            </div>
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </header>
+
+    <div id="image-modal" class="modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <img class="modal-content" src="assets/2.jpeg" alt="Omar Khaled Enlarged">
+    </div>
+
+    <main class="contact-container">
+        <div class="contact-header-box">
+            <h1 class="main-title">Get In Touch</h1>
+            <p class="subtitle">Let's connect and build something intelligent together</p>
+        </div>
+
+        <div class="contact-methods-list">
+            
+            <a href="https://wa.me/201024235644?text=Hello/%D8%A3%D9%87%D9%84%D8%A7" target="_blank" class="contact-card">
+                <div class="icon-wrapper">
+                    <img src="assets/W.jpeg" alt="WhatsApp" class="contact-icon">
+                </div>
+                <div class="contact-info">
+                    <h3>WhatsApp Chat</h3>
+                    <p>Click to open a direct chat with pre-filled greeting</p>
+                </div>
+                <div class="action-arrow">➔</div>
+            </a>
+
+            <a href="tel:+201024235644" class="contact-card">
+                <div class="icon-wrapper">
+                    <img src="assets/C.jpeg" alt="Call Me" class="contact-icon">
+                </div>
+                <div class="contact-info">
+                    <h3>Direct Call</h3>
+                    <p>+20 1024235644 - Click to dial instantly</p>
+                </div>
+                <div class="action-arrow">➔</div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/omar-khaled-546099269" target="_blank" class="contact-card">
+                <div class="icon-wrapper">
+                    <img src="assets/L.jpeg" alt="LinkedIn" class="contact-icon">
+                </div>
+                <div class="contact-info">
+                    <h3>LinkedIn</h3>
+                    <p>Connect for professional networking and updates</p>
+                </div>
+                <div class="action-arrow">➔</div>
+            </a>
+
+            <a href="https://github.com/omarel3o" target="_blank" class="contact-card">
+                <div class="icon-wrapper github-accent">
+                    <img src="assets/G.jpeg" alt="GitHub" class="contact-icon">
+                </div>
+                <div class="contact-info">
+                    <h3>GitHub</h3>
+                    <p>Explore my machine learning repositories and open-source code</p>
+                </div>
+                <div class="action-arrow">➔</div>
+            </a>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
